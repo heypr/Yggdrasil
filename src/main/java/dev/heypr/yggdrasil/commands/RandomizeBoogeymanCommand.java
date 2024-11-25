@@ -34,18 +34,18 @@ public class RandomizeBoogeymanCommand implements CommandExecutor {
 
         for (int i = 0; i < numBoogeymen && i < players.size() - 1; i++) {
             Player boogeyman = players.get(i);
-            playerData.putIfAbsent(boogeyman.getUniqueId(), new PlayerData(plugin.randomNumber(2, 6)));
+            playerData.putIfAbsent(boogeyman.getUniqueId(), new PlayerData(boogeyman.getUniqueId(), plugin.randomNumber(2, 6)));
             playerData.get(boogeyman.getUniqueId()).setBoogeyman(true);
             players.forEach(player -> {
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                plugin.getScheduler().runTaskLater(plugin, () -> {
                     player.sendTitle(ChatColor.GREEN + "3", "", 10, 20, 10);
-                    plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                    plugin.getScheduler().runTaskLater(plugin, () -> {
                         player.sendTitle(ChatColor.YELLOW + "2", "", 10, 20, 10);
-                        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                        plugin.getScheduler().runTaskLater(plugin, () -> {
                             player.sendTitle(ChatColor.RED + "1", "", 10, 20, 10);
-                            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                            plugin.getScheduler().runTaskLater(plugin, () -> {
                                 player.sendTitle(ChatColor.YELLOW + "You are...", "", 10, 70, 20);
-                                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                                plugin.getScheduler().runTaskLater(plugin, () -> {
                                     player.sendTitle(ChatColor.RED + "THE BOOGEYMAN!", "", 10, 70, 20);
                                 }, 60L);
                             }, 20L);
@@ -57,16 +57,16 @@ public class RandomizeBoogeymanCommand implements CommandExecutor {
 
         players.forEach(player -> {
             if (!playerData.get(player.getUniqueId()).isBoogeyman()) {
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                    playerData.putIfAbsent(player.getUniqueId(), new PlayerData(plugin.randomNumber(2, 6)));
+                plugin.getScheduler().runTaskLater(plugin, () -> {
+                    playerData.putIfAbsent(player.getUniqueId(), new PlayerData(player.getUniqueId(), plugin.randomNumber(2, 6)));
                     player.sendTitle(ChatColor.GREEN + "3", "", 10, 20, 10);
-                    plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                    plugin.getScheduler().runTaskLater(plugin, () -> {
                         player.sendTitle(ChatColor.YELLOW + "2", "", 10, 20, 10);
-                        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                        plugin.getScheduler().runTaskLater(plugin, () -> {
                             player.sendTitle(ChatColor.RED + "1", "", 10, 20, 10);
-                            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                            plugin.getScheduler().runTaskLater(plugin, () -> {
                                 player.sendTitle(ChatColor.YELLOW + "You are...", "", 10, 70, 20);
-                                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                                plugin.getScheduler().runTaskLater(plugin, () -> {
                                     player.sendTitle(ChatColor.GREEN + "NOT THE BOOGEYMAN!", "", 10, 70, 20);
                                 }, 60L);
                             }, 20L);

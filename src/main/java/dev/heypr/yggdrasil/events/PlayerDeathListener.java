@@ -1,7 +1,7 @@
 package dev.heypr.yggdrasil.events;
 
-import dev.heypr.yggdrasil.data.PlayerData;
 import dev.heypr.yggdrasil.Yggdrasil;
+import dev.heypr.yggdrasil.data.PlayerData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;

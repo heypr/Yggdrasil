@@ -1,6 +1,7 @@
 package dev.heypr.yggdrasil.events;
 
 import dev.heypr.yggdrasil.Yggdrasil;
+import dev.heypr.yggdrasil.misc.Colors;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -12,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.io.File;
 
 public class PlayerJoinListener implements Listener {
 
@@ -41,25 +44,34 @@ public class PlayerJoinListener implements Listener {
             return;
         }
 
-        player.sendActionBar(Component.text("Lives: " + plugin.getPlayerData().get(player.getUniqueId()).getLives()));
-        Component lives = Component.text(" (" + plugin.getPlayerData().get(player.getUniqueId()).getLives() + " lives)").decoration(TextDecoration.ITALIC, false).color(TextColor.color(128, 128, 128));
+        final int lives = plugin.getPlayerData().get(player.getUniqueId()).getLives();
+        final File skinFile = Colors.getSkinFile(plugin, player, lives);
 
-        player.playerListName(player.name().append(lives));
+        if (skinFile != null)
+            plugin.skinsManager.skin(player, skinFile);
+
+        player.sendActionBar(Component.text("Lives: " + lives));
+        Component livesComp = Component.text(" (" + plugin.getPlayerData().get(player.getUniqueId()).getLives() + " lives)").decoration(TextDecoration.ITALIC, false).color(TextColor.color(128, 128, 128));
+
+        player.playerListName(player.name().append(livesComp));
+
+        plugin.getScheduler().runTaskLater(plugin, () -> player.playerListName(player.name().append(livesComp)), 20L); // To fix it incase the skin thing removes it
+
         switch (plugin.getPlayerData().get(player.getUniqueId()).getLives()) {
             case 5, 6:
-                player.playerListName(player.name().color(TextColor.color(0, 170, 0)).append(lives));
+                player.playerListName(player.name().color(TextColor.color(0, 170, 0)).append(livesComp));
                 break;
             case 3, 4:
-                player.playerListName(player.name().color(TextColor.color(85, 255, 85)).append(lives));
+                player.playerListName(player.name().color(TextColor.color(85, 255, 85)).append(livesComp));
                 break;
             case 2:
-                player.playerListName(player.name().color(TextColor.color(255, 255, 85)).append(lives));
+                player.playerListName(player.name().color(TextColor.color(255, 255, 85)).append(livesComp));
                 break;
             case 1:
-                player.playerListName(player.name().color(TextColor.color(255, 85, 85)).append(lives));
+                player.playerListName(player.name().color(TextColor.color(255, 85, 85)).append(livesComp));
                 break;
             case 0:
-                player.playerListName(player.name().color(TextColor.color(170, 170, 170)).append(lives));
+                player.playerListName(player.name().color(TextColor.color(170, 170, 170)).append(livesComp));
 
                 player.setGameMode(GameMode.ADVENTURE);
 
