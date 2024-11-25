@@ -6,6 +6,8 @@ prefix: Yggdrasil
 load: STARTUP
 authors: [ heypr ]
 description: One Life gamemode.
+softdepend:
+  - PlaceholderAPI
 commands:
   lives:
     permission: yggdrasil.lives
@@ -41,3 +43,6 @@ commands:
     permission: yggdrasil.addplayer
     description: Adds a player to the game.
     aliases: [ap]
+  skin:
+    permission: yggdrasil.skin
+    description: Set your skin to a skin from the file system
