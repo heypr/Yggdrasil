@@ -1,12 +1,10 @@
 package dev.heypr.yggdrasil.commands;
 
 import dev.heypr.yggdrasil.Yggdrasil;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.temporal.ChronoUnit;
@@ -39,9 +37,9 @@ public class StopSessionCommand implements CommandExecutor {
             }
             Player player = plugin.getServer().getPlayer(uuid);
 
-            NamespacedKey livesKey = new NamespacedKey(plugin, "lives");
-
-            player.getPersistentDataContainer().set(livesKey, PersistentDataType.INTEGER, plugin.getPlayerData().get(player.getUniqueId()).getLives());
+//            NamespacedKey livesKey = new NamespacedKey(plugin, "lives");
+//
+//            player.getPersistentDataContainer().set(livesKey, PersistentDataType.INTEGER, plugin.getPlayerData().get(player.getUniqueId()).getLives());
         });
 
         plugin.isSessionRunning = false;

@@ -2,9 +2,7 @@ package dev.heypr.yggdrasil.commands;
 
 import dev.heypr.yggdrasil.Yggdrasil;
 import dev.heypr.yggdrasil.data.PlayerData;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import dev.heypr.yggdrasil.misc.ColorManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,7 +40,8 @@ public class AddPlayerCommand implements CommandExecutor {
             return true;
         }
 
-        plugin.getPlayerData().putIfAbsent(target.getUniqueId(), new PlayerData(plugin.randomNumber(2, 6)));
+        final int lives = PlayerData.retrieveLivesOrDefault(target.getUniqueId(), plugin.randomNumber(2, 6));
+        plugin.getPlayerData().putIfAbsent(target.getUniqueId(), new PlayerData(target.getUniqueId(), lives));
 
         target.sendTitle(ChatColor.GRAY + "You will have...", "", 10, 20, 10);
         new BukkitRunnable() {
@@ -53,58 +52,22 @@ public class AddPlayerCommand implements CommandExecutor {
             public void run() {
                 if (e > 0) {
                     int lives = plugin.randomNumber(2, 6);
-                    switch (lives) {
-                        case 2:
-                            target.sendTitle(ChatColor.YELLOW + "" + lives,
-                                    "",
-                                    10, 20, 10);
-                            break;
-                        case 4, 3:
-                            target.sendTitle(ChatColor.GREEN + "" + lives,
-                                    "",
-                                    10, 20, 10);
-                            break;
-                        case 6, 5:
-                            target.sendTitle(ChatColor.DARK_GREEN + "" + lives,
-                                    "",
-                                    10, 20, 10);
-                            break;
-                    }
+                    ChatColor color = ColorManager.getColor(lives);
+
+                    target.sendTitle(color + "" + lives + " lives",
+                            "",
+                            10, 20, 10);
                     e--;
                 }
                 else {
                     int lives = plugin.getPlayerData().get(target.getUniqueId()).getLives();
-                    switch (lives) {
-                        case 2:
-                            target.sendTitle(ChatColor.YELLOW + "" + lives + " lives",
-                                    "",
-                                    10, 20, 10);
-                            break;
-                        case 4, 3:
-                            target.sendTitle(ChatColor.GREEN + "" + lives + " lives",
-                                    "",
-                                    10, 20, 10);
-                            break;
-                        case 6, 5:
-                            target.sendTitle(ChatColor.DARK_GREEN + "" + lives + " lives",
-                                    "",
-                                    10, 20, 10);
-                            break;
-                    }
-                    Component component = Component.text(" (" + plugin.getPlayerData().get(target.getUniqueId()).getLives() + " lives)").decoration(TextDecoration.ITALIC, false).color(TextColor.color(128, 128, 128));
+                    ChatColor color = ColorManager.getColor(lives);
 
-                    target.playerListName(target.name().append(component));
-                    switch (plugin.getPlayerData().get(target.getUniqueId()).getLives()) {
-                        case 5, 6:
-                            target.playerListName(target.name().color(TextColor.color(0, 170, 0)).append(component));
-                            break;
-                        case 3, 4:
-                            target.playerListName(target.name().color(TextColor.color(85, 255, 85)).append(component));
-                            break;
-                        case 2:
-                            target.playerListName(target.name().color(TextColor.color(255, 255, 85)).append(component));
-                            break;
-                    }
+                    target.sendTitle(color + "" + lives + " lives",
+                            "",
+                            10, 20, 10);
+
+                    ColorManager.setTabListName(plugin, target, plugin.getPlayerData().get(target.getUniqueId()).getLives());
                     cancel();
                 }
             }

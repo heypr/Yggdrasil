@@ -4,17 +4,19 @@ main: dev.heypr.yggdrasil.Yggdrasil
 api-version: '1.20'
 prefix: Yggdrasil
 load: STARTUP
-authors: [ heypr ]
+authors: [ heypr, Hellin ]
 description: One Life gamemode.
+softdepend:
+  - PlaceholderAPI
 commands:
   lives:
     permission: yggdrasil.lives
     description: Shows the number of lives you have left.
     aliases: [l]
-  setlives:
-    permission: yggdrasil.setlives
-    description: Sets the number of lives you have left.
-    aliases: [sl]
+  addlives:
+    permission: yggdrasil.addlives
+    description: Add/set a number of lives to a player.
+    aliases: [al, setlives]
   givelife:
     permission: yggdrasil.givelife
     description: Sets the number of lives you have left.
@@ -41,3 +43,10 @@ commands:
     permission: yggdrasil.addplayer
     description: Adds a player to the game.
     aliases: [ap]
+  skin:
+    permission: yggdrasil.skin
+    description: Set your skin to a skin from the file system
+  setdiscordtoken:
+    permission: yggdrasil.setdiscordtoken
+    description: Sets the token for the discord bot
+    aliases: [token]

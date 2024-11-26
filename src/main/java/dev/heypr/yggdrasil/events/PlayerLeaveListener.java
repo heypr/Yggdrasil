@@ -2,12 +2,10 @@ package dev.heypr.yggdrasil.events;
 
 import dev.heypr.yggdrasil.Yggdrasil;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.persistence.PersistentDataType;
 
 
 public class PlayerLeaveListener implements Listener {
@@ -32,10 +30,10 @@ public class PlayerLeaveListener implements Listener {
             return;
         }
 
-        NamespacedKey livesKey = new NamespacedKey(plugin, "lives");
-        NamespacedKey boogeymanKey = new NamespacedKey(plugin, "boogeyman");
-
-        player.getPersistentDataContainer().set(livesKey, PersistentDataType.INTEGER, plugin.getPlayerData().get(player.getUniqueId()).getLives());
-        player.getPersistentDataContainer().set(boogeymanKey, PersistentDataType.BOOLEAN, plugin.getPlayerData().get(player.getUniqueId()).isBoogeyman());
+//        NamespacedKey livesKey = new NamespacedKey(plugin, "lives");
+//        NamespacedKey boogeymanKey = new NamespacedKey(plugin, "boogeyman");
+//
+//        player.getPersistentDataContainer().set(livesKey, PersistentDataType.INTEGER, plugin.getPlayerData().get(player.getUniqueId()).getLives());
+//        player.getPersistentDataContainer().set(boogeymanKey, PersistentDataType.BOOLEAN, plugin.getPlayerData().get(player.getUniqueId()).isBoogeyman());
     }
 }

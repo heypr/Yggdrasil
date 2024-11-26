@@ -20,7 +20,7 @@ public class LivesCommand implements CommandExecutor {
         if (args.length < 1) {
             sender.sendMessage("You have " + plugin.getPlayerData().get(((Player) sender).getUniqueId()).getLives() + " lives.");
         }
-        if (args.length == 1) {
+        else if (args.length == 1) {
             Player target = sender.getServer().getPlayer(args[0]);
             if (target == null) {
                 sender.sendMessage("Player not found");
